@@ -23,10 +23,10 @@ service: practicerepo
 provider:
   name: aws
   runtime: nodejs12.x
+  region: ap-northeast-2
 
 # you can overwrite defaults here
 #  stage: dev
-region: ap-northeast-2
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
