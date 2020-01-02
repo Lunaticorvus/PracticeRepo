@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - checkout
-      - run: sls deploy
+      - run: echo "hello world"
 
       # Download and cache dependencies
       # - restore_cache:
@@ -27,7 +27,14 @@ jobs:
       #       # fallback to using the latest cache if no exact match is found
       #       - v1-dependencies-
 
-      # - run: yarn install
+      - run:
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+      - run:
+          name: Deploy application
+          command: sls deploy
 
       # - save_cache:
       #     paths:
