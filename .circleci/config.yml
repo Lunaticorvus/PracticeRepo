@@ -32,7 +32,9 @@ jobs:
           command: sudo npm install -g serverless
       - run:
           name: Install aws Cli
-          command: sudo pip install awscli
+          command: curl -O https://bootstrap.pypa.io/get-pip.py
+          command: python get-pip.py --user
+          command: pip install awscli --upgrade --user
       - run:
           name: Deploy stack
           command: bash build.sh
