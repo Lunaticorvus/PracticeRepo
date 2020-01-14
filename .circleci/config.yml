@@ -33,9 +33,6 @@ jobs:
           name: Install Serverless CLI and dependencies
           command: sudo npm install -g serverless
       - run:
-          name: Install Serverless Finch
-          command: sudo npm install --save serverless-finch
-      - run:
           name: Deploy stack
           command: bash build.sh
 
