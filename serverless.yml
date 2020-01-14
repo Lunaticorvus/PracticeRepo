@@ -1,0 +1,19 @@
+service: practicerepo
+provider:
+  name: aws
+  region: ap-northeast-2
+  stage: dev
+
+plugins:
+  - serverless-finch
+
+custom:
+  client:
+    bucketName: "${self:service}-finch-bucket"
+
+resources:
+  Resources:
+    S3BucketFinch:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: "${self:service}-finch-bucket"
