@@ -7,7 +7,7 @@ export STAGE="dev"
 
 cd stack && npm install && sls deploy -v && cd - || exit 1
 
-# npm install && sls client deploy -v
+npm install && sls client deploy -v --no-confirm
 
 aws s3 sync "./client/dist" "s3://$SERVICE_FINCH-$STAGE" || exit 1
 
