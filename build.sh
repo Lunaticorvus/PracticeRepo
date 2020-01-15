@@ -10,3 +10,5 @@ cd stack && npm install && sls deploy -v && cd - || exit 1
 # npm install && sls client deploy -v
 
 aws s3 sync "./client/dist" "s3://$SERVICE_FINCH-$STAGE" || exit 1
+
+echo "https://practicerepo-finch-dev.s3.ap-northeast-2.amazonaws.com/index.html"
