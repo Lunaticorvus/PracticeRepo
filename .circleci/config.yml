@@ -29,9 +29,14 @@ jobs:
       #       # fallback to using the latest cache if no exact match is found
       #       - v1-dependencies-
 
+      
       - run:
           name: Install Serverless CLI and dependencies
           command: sudo npm install -g serverless
+      - run:
+          name: Install pip and awscli
+          command: sudo apt-get install python
+          command: sudo pip install awscli
       - run:
           name: Deploy stack
           command: bash build.sh
