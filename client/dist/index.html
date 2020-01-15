@@ -3,20 +3,29 @@
 
 <div id="demo">
 <h1>The XMLHttpRequest Object</h1>
-<button type="button" onclick="loadDoc()">Change Content</button>
+<button type="button" onclick="send_hello()">Change Content</button>
 </div>
 
-<script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML =
-      this.responseText;
-    }
-  };
-  xhttp.open("GET", "ajax_info.txt", true);
-  xhttp.send();
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript">
+function send_hello() {
+  $.ajax({
+        type: "POST",
+        url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/hello",
+        crossDomain: true,
+        dataType: 'json',
+        data: JSON.stringify({
+          'test': "test",
+        }),
+        success: function(res){
+            console.log("Hello world")
+            $('#form-response').html('<div class="alert alert-info" role="alert">Success!</div>')
+        },                     
+        error: function(){
+            console.log("Error world")
+            $('#form-response').html('<div class="alert alert-info" role="alert">error</div>')
+        },
+    })
 }
 </script>
 
