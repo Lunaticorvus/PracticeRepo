@@ -9,11 +9,11 @@ plugins:
 
 custom:
   client:
-    bucketName: "${self:service}-finch-bucket"
+    bucketName: "${self:service}-${self:stage}"
 
-resources:
-  Resources:
-    S3BucketFinch:
-      Type: AWS::S3::Bucket
-      Properties:
-        BucketName: "${self:service}-finch-bucket"
+# resources:
+#   Resources:
+#     S3BucketFinch:
+#       Type: AWS::S3::Bucket
+#       Properties:
+#         BucketName: "${self:service}-finch-bucket"
