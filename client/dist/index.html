@@ -19,11 +19,11 @@ function send_hello() {
         }),
         success: function(res){
             console.log("Hello world")
-            $('#form-response').html('<div class="alert alert-info" role="alert">Success!</div>')
+            alert("Success")
         },                     
         error: function(){
-            console.log("Error world")
-            $('#form-response').html('<div class="alert alert-info" role="alert">error</div>')
+            console.log("Fail")
+            alert("Fail!")
         },
     })
 }
