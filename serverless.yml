@@ -9,7 +9,7 @@ plugins:
 
 custom:
   client:
-    bucketName: "${self:service}-${provider:stage}"
+    bucketName: "${self:service}-${self:provider.stage}"
 
 # resources:
 #   Resources:
