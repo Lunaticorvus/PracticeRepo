@@ -16,4 +16,4 @@ custom:
 #     S3BucketFinch:
 #       Type: AWS::S3::Bucket
 #       Properties:
-#         BucketName: "${self:service}-finch-bucket"
+#         BucketName: "${self:service}-${self:provider.stage}"
