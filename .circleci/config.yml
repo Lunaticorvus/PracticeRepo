@@ -36,6 +36,7 @@ jobs:
       - run:
           name: Install pip and awscli
           command: sudo apt-get install python
+      -run:
           command: sudo pip install awscli
       - run:
           name: Deploy stack
