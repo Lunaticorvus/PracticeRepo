@@ -1,4 +1,4 @@
-service: practicerepo
+service: practicerepo-finch
 provider:
   name: aws
   region: ap-northeast-2

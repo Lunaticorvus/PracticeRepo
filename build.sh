@@ -1,5 +1,6 @@
 #!/bin/bash
-export SERVICE="practicerepo"
+export SERVICE_FINCH="practicerepo-finch"
+export SERVICE_STACK="practicerepo-stack"
 export STAGE="dev"
 
 BUCKET=$(aws cloudformation describe-stack-resource --stack-name "${SERVICE}-${STAGE}" --logical-resource-id "S3BucketFinch" --query "StackResourceDetail.PhysicalResourceId" --output text)
