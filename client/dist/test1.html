@@ -2,14 +2,14 @@
 <body>
 
 <div id="demo">
-<h1>aws practice</h1>
-<button type="button" onclick="send_hello()">Change Content</button>
-<a href="test1.html">test1</a>
+<h1>send and receive data with ddb</h1>
+<input type="text" name="targetValue" value="input string"/>
+<button type="button" onclick="send_and_receive_from_ddb()">send message</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-function send_hello() {
+function send_and_receive_from_ddb() {
   $.ajax({
         type: "POST",
         url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/hello",

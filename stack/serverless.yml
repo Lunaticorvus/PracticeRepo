@@ -65,6 +65,13 @@ functions:
       - http:
           path: hello
           method: post
+  
+  ddbPractice:
+    handler: handler.send_and_receive_from_ddb
+    events:
+      - http:
+          path: ddb
+          method: post
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -104,7 +111,25 @@ functions:
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
-
+resources: # CloudFormation template syntax from here on.
+  Resources:
+    pracTable: 
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:service}-${self:provider.stage}-table"
+        AttributeDefinitions:
+          - AttributeName: inputText
+            AttributeType: S
+          - AttributeName: inputTime
+            AttributeType: S
+        KeySchema:
+          - AttributeName: inputText
+            KeyType: HASH
+          - AttributeName: inputTime
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:
