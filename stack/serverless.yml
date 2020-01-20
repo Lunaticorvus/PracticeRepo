@@ -26,6 +26,9 @@ provider:
   region: ap-northeast-2
   stage: dev
 
+plugins:
+  - serverless-iam-roles-per-function
+
 # you can overwrite defaults here
 #  stage: dev
 
@@ -72,6 +75,13 @@ functions:
       - http:
           path: ddb
           method: post
+    iamRoleStatementsName: "${self:service}-${self:provider.stage}-access-db-role"
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - dynamodb:GetItem
+          - dynamodb:PutItem        
+        Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:service}-${self:provider.stage}-table"
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
