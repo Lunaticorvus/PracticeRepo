@@ -1,25 +1,29 @@
 <html>
 <body>
 
-<div id="demo">
+<div id="demo" class="content">
 <h1>send and receive data with ddb</h1>
-<input type="text" name="targetValue" value="input string"/>
+<input type="text" id="targetValue"/>
 <button type="button" onclick="send_and_receive_from_ddb()">send message</button>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
 function send_and_receive_from_ddb() {
+  let str = document.getElementById("targetValue").value
+  let result = []
+  console.log(str)
   $.ajax({
         type: "POST",
-        url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/hello",
+        url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/ddb",
         crossDomain: true,
         dataType: 'json',
         data: JSON.stringify({
-          'test': "test",
+          'text': str,
         }),
         success: function(res){
-            console.log("Hello world")
+            console.log(res)
+            result = res.map(e => $(".content").append($("<div>").text(e.inputText + " " + e.inputTime)))
             alert("Success")
         },                     
         error: function(){

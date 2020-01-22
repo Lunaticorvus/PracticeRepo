@@ -70,17 +70,23 @@ functions:
           method: post
   
   ddbPractice:
-    handler: handler.send_and_receive_from_ddb
+    handler: ddbFunction.send_and_receive_from_ddb
     events:
       - http:
           path: ddb
           method: post
+          cors: true
     iamRoleStatementsName: "${self:service}-${self:provider.stage}-access-db-role"
     iamRoleStatements:
       - Effect: "Allow"        
         Action:
+          - dynamodb:DescribeTable
+          - dynamodb:Query
+          - dynamodb:Scan
           - dynamodb:GetItem
-          - dynamodb:PutItem        
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem
+          - dynamodb:DeleteItem    
         Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:service}-${self:provider.stage}-table"
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
