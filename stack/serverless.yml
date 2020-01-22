@@ -88,6 +88,25 @@ functions:
           - dynamodb:UpdateItem
           - dynamodb:DeleteItem    
         Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:service}-${self:provider.stage}-table"
+  
+  s3Practice:
+    handler: s3Function.receive_image_s3
+    events:
+      - http:
+          path: s3
+          method: post
+          cors: true
+    iamRoleStatementsName: "${self:service}-${self:provider.stage}-access-s3-for-image-role"
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - "s3:*"
+        Resource:
+          Fn::Join:
+            - ""
+            - - 'arn:aws:s3:::'
+              - Ref: pracS3
+              - '/*'
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -146,6 +165,10 @@ resources: # CloudFormation template syntax from here on.
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+    pracS3:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: "${self:service}-${self:provider.stage}-image-bucket"
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:

@@ -2,27 +2,24 @@
 <body>
 
 <div id="demo">
-<h1>aws practice</h1>
-<button type="button" onclick="send_hello()">Change Content</button>
+<h1>s3 practice</h1>
+<button type="button" onclick="draw_imgae()">S3 presigned image</button>
 <br/>
-<a href="test1.html">test1</a>
 <br/>
-<a href="test2.html">test2</a>
-</div>
+<img class="contnet" width="500" height="500"/>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript">
-function send_hello() {
+function draw_imgae() {
   $.ajax({
         type: "POST",
-        url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/hello",
+        url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/s3",
         crossDomain: true,
         dataType: 'json',
         data: JSON.stringify({
-          'test': "test",
         }),
         success: function(res){
-            console.log("Hello world")
+            $("img").attr('src', res.url)
             alert("Success")
         },                     
         error: function(){
