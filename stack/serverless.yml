@@ -63,14 +63,14 @@ plugins:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: jsLambda/handler.hello
     events:
       - http:
           path: hello
           method: post
   
   ddbPractice:
-    handler: ddbFunction.send_and_receive_from_ddb
+    handler: jsLambda/ddbFunction.send_and_receive_from_ddb
     events:
       - http:
           path: ddb
@@ -90,7 +90,7 @@ functions:
         Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:service}-${self:provider.stage}-table"
   
   s3Practice:
-    handler: s3Function.receive_image_s3
+    handler: jsLambda/s3Function.receive_image_s3
     events:
       - http:
           path: s3
