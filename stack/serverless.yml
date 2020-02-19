@@ -162,9 +162,7 @@ resources: # CloudFormation template syntax from here on.
             KeyType: HASH
           - AttributeName: inputTime
             KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+        BillingMode: PAY_PER_REQUEST
 
     3PracTable: 
       Type: AWS::DynamoDB::Table
@@ -180,9 +178,7 @@ resources: # CloudFormation template syntax from here on.
             KeyType: HASH
           - AttributeName: Time
             KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
+        BillingMode: PAY_PER_REQUEST
 
     pracS3:
       Type: AWS::S3::Bucket
