@@ -15,15 +15,17 @@ function draw_imgae() {
         type: "POST",
         url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/s3",
         crossDomain: true,
-        dataType: 'json',
+        dataType: 'jsonp',
         data: JSON.stringify({
         }),
         success: function(res){
             $("img").attr('src', res.url)
             alert("Success")
         },                     
-        error: function(){
+        error: function(err)
+        {
             console.log("Fail")
+            console.log(err)
             alert("Fail!")
         },
     })

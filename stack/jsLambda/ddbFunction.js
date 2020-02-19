@@ -28,7 +28,7 @@ module.exports.send_and_receive_from_ddb = async event => {
         } else {
             msg = "success with ddb"
         }
-    })
+    }).promise()
 
     params = {
         TableName: table,
@@ -40,7 +40,7 @@ module.exports.send_and_receive_from_ddb = async event => {
         let scanResults = [];
         let items;
         do{
-            items =  await ddbClient.scan(params);
+            items =  await ddbClient.scan(params).promise();
             items.Items.forEach((item) => scanResults.push(item));
             params.ExclusiveStartKey  = items.LastEvaluatedKey;
         }while(typeof items.LastEvaluatedKey != "undefined");
