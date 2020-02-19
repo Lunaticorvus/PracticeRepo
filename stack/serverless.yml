@@ -165,10 +165,85 @@ resources: # CloudFormation template syntax from here on.
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
+
+    3PracTable: 
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: "${self:service}-${self:provider.stage}-3Practable"
+        AttributeDefinitions:
+          - AttributeName: ID
+            AttributeType: S
+          - AttributeName: Time
+            AttributeType: S
+        KeySchema:
+          - AttributeName: ID
+            KeyType: HASH
+          - AttributeName: Time
+            KeyType: RANGE
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
     pracS3:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: "${self:service}-${self:provider.stage}-image-bucket"
+    
+    3Repository:
+      Type: AWS::ECR::Repository
+      Properties:
+        RepositoryName: "${self:service}-${self:provider.stage}-3repository"
+
+    3BatchRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - batch.amazonaws.com
+              Action:
+                  - 'sts:AssumeRole'
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole'
+
+    3BatchInstaceRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - ec2.amazonaws.com
+              Action:
+                - 'sts:AssumeRole'
+        ManagedPolicyArns:
+          - 'arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role'
+    
+    3BatchInstanceProfile:
+      Type: AWS::IAM::InstanceProfile
+      Properties:
+        Roles:
+          - !Ref 3BatchInstaceRole
+        InstanceProfileName: "${self:service}-${self:provider.stage}-3instanceprofile"
+    
+    3Environment:
+      Type: AWS::Batch::ComputeEnvironment
+      Properties:
+        ComputeEnvironmentName: "${self:service}-${self:provider.stage}-3-environmnet"
+        ServiceRole: !Ref 3BatchRole
+        Type: "UNMANAGED"
+        ComputeResources:
+          InstanceRole: !Ref 3BatchInstanceProfile
+          InstanceTypes:
+            - "t2.small"
+          MaxvCpus: 4
+          MinvCpus: 1
+          Subnets:
+            - subnet-63ac0018
+          Type: SPOT
 # you can add CloudFormation resource templates here
 #resources:
 #  Resources:

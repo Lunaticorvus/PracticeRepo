@@ -2,7 +2,7 @@ const AWS = require('aws-sdk')
 AWS.config.update({region: 'ap-northeast-2'});
 const ddbClient = new AWS.DynamoDB.DocumentClient({region:'ap-northeast-2'})
 
-module.exports.receive_image_s3 = async event => {
+module.exports.receive_image_s3 = event => {
 
     const s3 = new AWS.S3()
     const bucketName = "practicerepo-stack-dev-image-bucket"
