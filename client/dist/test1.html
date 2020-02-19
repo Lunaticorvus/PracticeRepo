@@ -17,7 +17,7 @@ function send_and_receive_from_ddb() {
         type: "POST",
         url: "https://q4foft79zl.execute-api.ap-northeast-2.amazonaws.com/dev/ddb",
         crossDomain: true,
-        dataType: 'jsonp',
+        dataType: 'json',
         data: JSON.stringify({
           'text': str,
         }),
